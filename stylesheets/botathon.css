@@ -2,6 +2,9 @@ body {
   background-color: #000;
   border: 10px solid #000;
 }
+.logo {
+  max-width: 100%;
+}
 #console {
   font-family: courier, monospace;
   color: #fff;
@@ -25,3 +28,4 @@ a {
 #b {
   color: #ff0096;
 }
+
