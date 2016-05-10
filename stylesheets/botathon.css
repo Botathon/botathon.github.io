@@ -5,6 +5,10 @@ body {
 .logo {
   max-width: 100%;
 }
+.love {
+  max-width: 100%;
+}
+
 #console {
   font-family: courier, monospace;
   color: #fff;
