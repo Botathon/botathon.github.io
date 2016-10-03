@@ -1,133 +1,85 @@
 ---
 layout: default
-title: Home
+title: Botathon 1.0 &mdash; October 8-9th 2016
 ---
 
-<script type="text/javascript">
-  var Typer={
-  text: null,
-  accessCountimer:null,
-  index:0, // current cursor position
-  speed:2, // speed of the Typer
-  file:"", //file, must be setted
-  accessCount:0, //times alt is pressed for Access Granted
-  deniedCount:0, //times caps is pressed for Access Denied
-  init: function(){// inizialize Hacker Typer
-    accessCountimer=setInterval(function(){Typer.updLstChr();},500); // inizialize timer for blinking cursor
-    $.get(Typer.file,function(data){// get the text file
-      Typer.text=data;// save the textfile in Typer.text
-      Typer.text = Typer.text.slice(0, Typer.text.length-1);
-    });
-  },
-
-  content:function(){
-    return $("#console").html();// get console content
-  },
-
-  write:function(str){// append to console content
-    $("#console").append(str);
-    return false;
-  },
-
-  makeAccess:function(){//create Access Granted popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
-    Typer.hidepop(); // hide all popups
-    Typer.accessCount=0; //reset count
-    var ddiv=$("<div id='gran'>").html(""); // create new blank div and id "gran"
-    ddiv.addClass("accessGranted"); // add class to the div
-    ddiv.html("<h1>ACCESS GRANTED</h1>"); // set content of div
-    $(document.body).prepend(ddiv); // prepend div to body
-    return false;
-  },
-  makeDenied:function(){//create Access Denied popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
-    Typer.hidepop(); // hide all popups
-    Typer.deniedCount=0; //reset count
-    var ddiv=$("<div id='deni'>").html(""); // create new blank div and id "deni"
-    ddiv.addClass("accessDenied");// add class to the div
-    ddiv.html("<h1>ACCESS DENIED</h1>");// set content of div
-    $(document.body).prepend(ddiv);// prepend div to body
-    return false;
-  },
-
-  hidepop:function(){// remove all existing popups
-    $("#deni").remove();
-    $("#gran").remove();
-  },
-
-  addText:function(key){//Main function to add the code
-    if(key.keyCode==18){// key 18 = alt key
-      Typer.accessCount++; //increase counter
-      if(Typer.accessCount>=3){// if it's presed 3 times
-        Typer.makeAccess(); // make access popup
-      }
-    }else if(key.keyCode==20){// key 20 = caps lock
-      Typer.deniedCount++; // increase counter
-      if(Typer.deniedCount>=3){ // if it's pressed 3 times
-        Typer.makeDenied(); // make denied popup
-      }
-    }else if(key.keyCode==27){ // key 27 = esc key
-      Typer.hidepop(); // hide all popups
-    }else if(Typer.text){ // otherway if text is loaded
-      var cont=Typer.content(); // get the console content
-      if(cont.substring(cont.length-1,cont.length)=="|") // if the last char is the blinking cursor
-        $("#console").html($("#console").html().substring(0,cont.length-1)); // remove it before adding the text
-      if(key.keyCode!=8){ // if key is not backspace
-        Typer.index+=Typer.speed; // add to the index the speed
-      }else{
-        if(Typer.index>0) // else if index is not less than 0
-          Typer.index-=Typer.speed;// remove speed for deleting text
-      }
-      var text=Typer.text.substring(0,Typer.index)// parse the text for stripping html enities
-      var rtn= new RegExp("\n", "g"); // newline regex
-
-      $("#console").html(text.replace(rtn,"<br/>"));// replace newline chars with br, tabs with 4 space and blanks with an html blank
-      window.scrollBy(0,50); // scroll to make sure bottom is always visible
-    }
-    if ( key.preventDefault && key.keyCode != 122 ) { // prevent F11(fullscreen) from being blocked
-      key.preventDefault()
-    };
-    if(key.keyCode != 122){ // otherway prevent keys default behavior
-      key.returnValue = false;
-    }
-  },
-
-  updLstChr:function(){ // blinking cursor
-    var cont=this.content(); // get console
-    if(cont.substring(cont.length-1,cont.length)=="|") // if last char is the cursor
-      $("#console").html($("#console").html().substring(0,cont.length-1)); // remove it
-    else
-      this.write("|"); // else write it
-  }
-}
-
-function replaceUrls(text) {
-  var http = text.indexOf("http://");
-  var space = text.indexOf(".me ", http);
-  if (space != -1) {
-    var url = text.slice(http, space-1);
-    return text.replace(url, "<a href=\""  + url + "\">" + url + "</a>");
-  } else {
-  return text
-}
-}
-Typer.speed=3;
-Typer.file="botathon.txt";
-Typer.init();
-
-var timer = setInterval("t();", 30);
-function t() {
-  Typer.addText({"keyCode": 123748});
-  if (Typer.index > Typer.text.length) {
-    clearInterval(timer);
-    showHi();
-  }
-}
-function showHi() {
-  $('#hi').show();
-}
-</script>
-
-<div id="console"></div>
 <div class="col">
-  <img src="images/bot-hi.png" alt="Botathon.ai logo" style="display: none;" id="hi" />
+  <p class="center"><img src="images/botathon-logo.png" alt="Botathon.ai logo" /></p>
+
+  <h1>Purpose</h1>
+
+  <p>Bots have become the latest paradigm for content distribution and e-commerce on messaging platforms. Some say that bots are the new apps. The purpose of this two day <b>Botathon</b>, a hackathon for building bots, is to educate, inspire collaboration and team building, and to develop innovative use cases within a conversational interface.</p>
+
+  <p><a href="https://www.eventbrite.com/e/botathon-10-tickets-28066964045">Register on EventBrite.</a></p>
+
+  <h1>Our Partner</h1>
+
+  <p class="center"><img src="images/lasbest.png" alt="La's Best" /></p>
+
+  <p><b>LA's BEST</b> provides an enriching after school program to 25,000 kids each school day at 193 elementary schools across Los Angeles with the highest needs and fewest resources in economically distressed neighborhoods.</p>
+
+  <p>Their programming goes beyond basic education to instill healthy values and to build skill sets in fields such as digital learning, science and the arts. <b>LA's BEST</b> students are more likely to stay in school and graduate high school.</p>
+
+
+  <h1>Schedule</h1>
+
+  <h2>Saturday Oct 8th: (9am-6pm)</h2>
+  <ul>
+    <li>&nbsp;9:00-10:00 &mdash; Coffee + Snacks</li>
+    <li>10:00-10:10 &mdash; Opening Remarks By Todd Terrazas</li>
+    <li>10:10-10:40 &mdash; Keynote by Dr. Julie Albright </li>
+    <li>10:45-11:15 &mdash; Surprise Speaker</li>
+    <li>11:20-12:00 &mdash; Microsoft Workshop</li>
+    <li>12:00-1:00 &mdash; Lunch</li>
+    <li>&nbsp;1:00-1:30 &mdash; Pitch Ideas</li>
+    <li>&nbsp;1:30-2:30 &mdash; Form teams</li>
+    <li>&nbsp;2:30-6:00 &mdash; Work on projects, mentors will be available</li>
+  </ul>
+
+  <h2>Sunday Oct 8th: (12pm-5pm)</h2>
+  <ul>
+    <li>12:00-2:00 &mdash; Lunch</li>
+    <li>2:00 &mdash; Project Submissions</li>
+    <li>3:00 &mdash; Team Presentations</li>
+    <li>5:00 &mdash; Judging + Prizes</li>
+  </ul>
+
+  <h1>Sponsors &amp; Community Partners</h1>
+
+  <div class="sponsors">
+    <div>
+      <img src="images/microsoft.png" alt="Microsoft" class="half" />
+      <img src="images/kik.png" alt="Kik" class="half" />
+    </div>
+    <div>
+      <img src="images/sensay.png" alt="Sensay" class="half" />
+      <img src="images/brainitch.png" alt="Brainitch" class="half" />
+    </div>
+    <div>
+      <img src="images/commerce-io.png" alt="Commerce.io" class="half" />
+      <img src="images/oreilly-botday.png" alt="O'reilly Bot Day" class="half"/>
+    </div>
+    <div>
+      <img src="images/slack.png" alt="Slack" class="half"/>
+      <img src="images/twilio.png" alt="Twilio" class="half"/>
+    </div>
+    <div>
+      <img src="images/inla.jpg" alt="Innovate LA" class="half"/>
+      <img src="images/adb.png" alt="ADB" class="half"/>
+    </div>
+  </div>
+
+  <h1>Venue</h1>
+
+  <p class="center"><img src="images/impact-hub.jpg" alt="impact-hub"></p>
+
+  <p><a href="https://goo.gl/maps/M2ZZqArCouF2" target="top">Address: 830 Traction Ave #3a, Los Angeles, CA 90013</a></p>
+
+  <p>Impact Hub Los Angeles is a community hub/incubator with nearly 300 members made up of socially conscious professionals, entrepreneurs, civic leaders, non-profit leaders, consultants and artists all working on addressing the most critical issues facing the society. Our network includes over 11,000 members in 85 Impact Hubs spread across five continents.</p>
+
+  <h1>Tickets</h1>
+
+  <p><a href="https://www.eventbrite.com/e/botathon-10-tickets-28066964045">Register on EventBrite.</a></p>
+
 </div>
 
